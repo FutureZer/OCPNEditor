@@ -1,0 +1,43 @@
+.place {
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-min-width: 35;
+    -fx-min-height: 35;
+    -fx-max-width: 35;
+    -fx-max-height: 35;
+    -fx-background-radius: 33;
+    -fx-border-radius: 35;
+    -fx-border-width: 1.5;
+
+}
+
+.transition {
+    -fx-background-color: white;
+    -fx-border-color: black;
+
+    -fx-max-width: 10;
+    -fx-min-width: 10;
+    -fx-max-height: 45;
+    -fx-min-height: 45;
+    -fx-border-width: 1.5;
+}
+
+.arcpoint {
+    -fx-background-color: black;
+    -fx-min-width: 5;
+    -fx-min-height: 5;
+    -fx-max-width: 5;
+    -fx-max-height: 5;
+    -fx-background-radius: 9;
+}
+
+.selection {
+    -fx-background-color: blue;
+    -fx-opacity: 0.3;
+
+    -fx-border-width: 1.5;
+}
+
+.graph-pane {
+    -fx-background-color: #D3D3D3;
+}

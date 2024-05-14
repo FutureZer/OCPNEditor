@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" onKeyReleased="#appKeyAction" prefHeight="511.0" prefWidth="666.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.edu.ocpneditor.MainController">
+    <VBox prefHeight="17.0" prefWidth="666.0">
+        <children>
+            <MenuBar VBox.vgrow="ALWAYS">
+                <menus>
+                    <Menu mnemonicParsing="false" text="File">
+                        <items>
+                            <MenuItem fx:id="saveOCDotModel" mnemonicParsing="false" onAction="#saveAsOCDotMode" text="Export model as OCDOT" />
+                            <MenuItem fx:id="saveYamlConfiguration" mnemonicParsing="false" onAction="#saveNetConfigurationAsYaml" text="Export configuration as YAML" />
+                     <SeparatorMenuItem mnemonicParsing="false" />
+                     <MenuItem fx:id="downloadOcdotAndYaml" mnemonicParsing="false" onAction="#downloadNetFromOCDotAndYaml" text="Import OCDOT and YAML" />
+                        </items>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Settings">
+                        <items>
+                            <MenuItem fx:id="defaultPlaceType" mnemonicParsing="false" onAction="#selectDefaultPlaceType" text="Select default place type" />
+                        </items>
+                    </Menu>
+               <Menu mnemonicParsing="false" text="Layout">
+                 <items>
+                            <MenuItem fx:id="graphArrangment" mnemonicParsing="false" onAction="#arrangeGraph" text="Arrange Petri net" />
+                 </items>
+               </Menu>
+               <Menu mnemonicParsing="false" text="Validation">
+                 <items>
+                   <MenuItem mnemonicParsing="false" onAction="#validationAction" text="Validate" />
+                 </items>
+               </Menu>
+                </menus>
+            </MenuBar>
+        </children>
+    </VBox>
+    <SplitPane dividerPositions="0.5" prefHeight="354.0" prefWidth="447.0" VBox.vgrow="ALWAYS">
+        <items>
+            <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="237.0" prefWidth="50.0" SplitPane.resizableWithParent="false">
+                <children>
+                    <ToggleButton fx:id="mouseMode" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" selected="true" text="Ms" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                        <toggleGroup>
+                            <ToggleGroup fx:id="placementModes" />
+                        </toggleGroup>
+                  <graphic>
+                  </graphic>
+                  <graphic>
+                     <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@img/cursor.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+                    </ToggleButton>
+                    <ToggleButton fx:id="placeMode" contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="56.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Pl" toggleGroup="$placementModes" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                  <graphic>
+                     <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@img/circle.png" />
+                        </image>
+                     </ImageView>
+                  </graphic></ToggleButton>
+                    <ToggleButton fx:id="transitionMode" contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="107.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Tr" toggleGroup="$placementModes" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                  <graphic>
+                     <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@img/rectangle.png" />
+                        </image>
+                     </ImageView>
+                  </graphic></ToggleButton>
+                    <ToggleButton fx:id="arcMode" contentDisplay="GRAPHIC_ONLY" layoutX="5.0" layoutY="158.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Arc" toggleGroup="$placementModes" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                  <graphic>
+                     <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@img/arrow.png" />
+                        </image>
+                     </ImageView>
+                  </graphic></ToggleButton>
+               <Button fx:id="undoButton" layoutX="2.0" layoutY="216.0" mnemonicParsing="false" onMouseClicked="#undoAction" text="Undo" />
+               <Button fx:id="redoButton" layoutX="3.0" layoutY="248.0" mnemonicParsing="false" onMouseClicked="#redoAction" text="Redo" />
+                </children>
+            </AnchorPane>
+            <SplitPane dividerPositions="0.7406593406593407" prefHeight="354.0" prefWidth="447.0" VBox.vgrow="ALWAYS">
+                <items>
+               <ScrollPane fx:id="graphScroll" hbarPolicy="ALWAYS" prefHeight="2000.0" prefWidth="2000.0" vbarPolicy="ALWAYS">
+                  <content>
+                     <AnchorPane fx:id="graphResizePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2000.0" prefWidth="3000.0">
+                        <children>
+                                <AnchorPane fx:id="graph" cache="true" onMouseDragged="#onGraphPaneDragged" onMousePressed="#onGraphPanePressed" onScroll="#onGraphPaneScroll" prefHeight="2000.0" prefWidth="5000.0" styleClass="graph-pane" />
+                        </children>
+                     </AnchorPane>
+                  </content>
+               </ScrollPane>
+                    <VBox fx:id="elemProperties" fillWidth="false" SplitPane.resizableWithParent="false" />
+                </items>
+            </SplitPane>
+        </items>
+    </SplitPane>
+</VBox>
