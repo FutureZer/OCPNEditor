@@ -30,7 +30,7 @@ public class Place extends BaseVertex {
     private Place(Place place) {
         super(place);
         getStyleClass().add(STYLE);
-        type.set(place.getType());
+        setType(place.getType());
         startTokens.set(place.getStartTokens());
         isEndPlace.set(place.isEndPlace());
 

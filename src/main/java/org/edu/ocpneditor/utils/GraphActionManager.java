@@ -1,6 +1,7 @@
 package org.edu.ocpneditor.utils;
 
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import org.edu.ocpneditor.panemodels.*;
 import org.edu.ocpneditor.petriobj.PetriType;
@@ -76,6 +77,20 @@ public class GraphActionManager {
             @Override
             public void undo() {
                 addAction(element);
+            }
+        };
+    }
+
+    public GraphChange clearAllElements(List<Node> allElements) {
+        return new GraphChange() {
+            @Override
+            public void execute() {
+                graph.getChildren().clear();
+            }
+
+            @Override
+            public void undo() {
+                graph.getChildren().addAll(allElements);
             }
         };
     }

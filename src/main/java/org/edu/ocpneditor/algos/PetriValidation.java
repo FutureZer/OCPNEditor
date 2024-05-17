@@ -24,8 +24,13 @@ public class PetriValidation {
 
     public void validation() {
         if (transitions.isEmpty()) noMistakes();
+        boolean result = true;
         for (Transition tr : transitions) {
-            if (!isTransitionCorrect(tr)) break;
+            result = isTransitionCorrect(tr);
+            if (!result) break;
+        }
+        if (result) {
+            noMistakes();
         }
     }
 
@@ -68,7 +73,6 @@ public class PetriValidation {
                 return false;
             }
         }
-        noMistakes();
         return true;
     }
 

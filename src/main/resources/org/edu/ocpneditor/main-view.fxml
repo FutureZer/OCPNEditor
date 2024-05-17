@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" onKeyReleased="#appKeyAction" prefHeight="511.0" prefWidth="666.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.edu.ocpneditor.MainController">
+<VBox alignment="CENTER" onKeyReleased="#appKeyAction" prefHeight="511.0" prefWidth="666.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.edu.ocpneditor.MainController">
     <VBox prefHeight="17.0" prefWidth="666.0">
         <children>
             <MenuBar VBox.vgrow="ALWAYS">
@@ -30,6 +30,7 @@
                     <Menu mnemonicParsing="false" text="Settings">
                         <items>
                             <MenuItem fx:id="defaultPlaceType" mnemonicParsing="false" onAction="#selectDefaultPlaceType" text="Select default place type" />
+                     <MenuItem mnemonicParsing="false" onAction="#deleteAllElements" text="Delete all" />
                         </items>
                     </Menu>
                <Menu mnemonicParsing="false" text="Layout">

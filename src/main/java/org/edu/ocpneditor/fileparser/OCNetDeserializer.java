@@ -51,6 +51,8 @@ public class OCNetDeserializer {
                     lines.append(line + "\n");
                 }
             }
+        } else {
+            throw new OCNetDeserializationException("User didn't select model file");
         }
         StringBuilder body = new StringBuilder().append(findModelSection(lines));
         initVertices(body, OCDot.TRANSITIONS);
@@ -60,6 +62,9 @@ public class OCNetDeserializer {
 
     public void deserializeConfiguration(File file) throws IOException {
         Yaml yaml = new Yaml();
+        if (file == null) {
+            throw new OCNetDeserializationException("User didn't select configuration file");
+        }
         try (InputStream inputStream = new BufferedInputStream(new FileInputStream(file))) {
             Map<String, Object> objs = yaml.load(inputStream);
             Configuration configuration = new Configuration(objs, separatorsRegex);

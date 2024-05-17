@@ -365,11 +365,15 @@ public class MainController implements Initializable {
                             el.getBoundsInParent().getMaxY() >= sampleArc.getEndY() &&
                             el instanceof BaseVertex).findAny();
             if (target.isPresent() && (target.get() instanceof BaseVertex)) {
-                Arc arc = new Arc(source, (BaseVertex) target.get());
-                source.getOutArcs().add(arc);
-                ((BaseVertex) target.get()).getInArcs().add(arc);
-                GraphChange addArc = addArrow(arc);
-                if (addArc != null) actions.execute(addArc);
+
+                if (source instanceof Place && (BaseVertex) target.get() instanceof Transition ||
+                        source instanceof Transition && (BaseVertex) target.get() instanceof Place) {
+                    Arc arc = new Arc(source, (BaseVertex) target.get());
+                    source.getOutArcs().add(arc);
+                    ((BaseVertex) target.get()).getInArcs().add(arc);
+                    GraphChange addArc = addArrow(arc);
+                    if (addArc != null) actions.execute(addArc);
+                }
             }
             graph.getChildren().remove(sampleArc);
             sampleArc = null;
@@ -448,12 +452,6 @@ public class MainController implements Initializable {
         selected.clear();
         selected.add(vertex);
         return actions.addGraphElement(vertex);
-    }
-
-    private List<GraphChange> addAllVertices(List<BaseVertex> vertices) {
-        List<GraphChange> addChanges = new ArrayList<>();
-        vertices.forEach(vertex -> addChanges.add(addVertex(vertex)));
-        return addChanges;
     }
 
     private GraphChange deleteElement(Selectable selection) {
@@ -575,7 +573,6 @@ public class MainController implements Initializable {
                 if (addArc != null) actions.execute(addArc);
             }
             if (!deserializer.getTypes().isEmpty()) {
-                actions.clear();
                 PetriType.setDefaultType(deserializer.getTypes().get(0));
                 petriTypes.addAll(deserializer.getTypes());
             } else {
@@ -589,6 +586,7 @@ public class MainController implements Initializable {
             alert.showAndWait();
         }
         arrangeGraph(actionEvent);
+        actions.clear();
     }
 
     @FXML
@@ -617,5 +615,12 @@ public class MainController implements Initializable {
     @FXML
     public void redoAction(MouseEvent event) {
         actions.redo();
+    }
+
+    @FXML
+    public void deleteAllElements(ActionEvent actionEvent) {
+        List<Node> nodes = List.copyOf(graph.getChildren());
+        actions.execute(actions.clearAllElements(nodes));
+        selected.clear();
     }
 }
